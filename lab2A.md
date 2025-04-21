@@ -88,7 +88,7 @@
 #### 2.2.1 concatenate_first_chars()
 - word_buf 크기가 12byte인데 fgets()함수에서 16byte(0x10)를 입력받을 수 있으므로 4byte overflow 발생 가능
 ```c
-	...
+    ...
     struct {
             char word_buf[12];
             int i;
@@ -98,12 +98,12 @@
     ...
     if(fgets(locals.word_buf, 0x10, stdin) == 0 || locals.word_buf[0] == '\n')
     {
-	...
+    ...
 ```
 - word_buf 가 overflow 되면 i 값까지 덮어쓰게 되고, i 값이 10이 아니면 for문이 반복되므로 최종적으로 cat_buf 의 크기인 10byte보다 더 큰 값을 덮어쓸 수 있음
 ```c
-	...
-	locals.cat_pointer = locals.cat_buf;
+    ...
+    locals.cat_pointer = locals.cat_buf;
 
     printf("Input 10 words:\n");
 	for(locals.i=0; locals.i!=10; locals.i++)
@@ -116,7 +116,7 @@
 - fgets()함수를 통해 12byte 문자를 입력하면 Enter(0xa)까지 총 13byte가 word_buf 에 쓰여지고 다음 변수 i 까지 덮어쓰게 됨
   (※ i값이 0xa(10)부터 증가되므로 for문 조건에 의해 무한 반복됨)
 ```
-	|-----------   word_buf  -----------| |---- i ----|
+    |-----------   word_buf  -----------| |---- i ----|
     [31 32 33 34 35 36 37 38 39 30 31 32] [0a 00 00 00]
       1  2  3  4  5  6  7  8  9  0  1  2   \n    
 ```
@@ -146,7 +146,7 @@
 ## 3. Exploit
 - 변수 i 값을 변경하여 반복문 횟수를 늘리고 cat_buf 값이 리턴주소까지 덮어쓰도록 함 
 ```
-	 =============================================>
+    =============================================>
     [word_buf][i][cat_pointer][cat_buf][dummy][SFP][RET]
         12     4       4          10      10    4  main() <-- shell() 주소로 변경
 ```
