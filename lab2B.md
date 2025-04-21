@@ -76,15 +76,15 @@
 - buf를 이용해 stack 메모리를 덮어쓰면, print_name()함수를 끝내고 main()함수로 돌아갈 주소를 shell()함수 주소로 변경 가능
 ```
 	[XXXXXXXXXXXXXXX] [SFP] [RET]
-           buf              main() <-- shell() 주소로 변경
+               buf              main() <-- shell() 주소로 변경
 ```
 - shell()함수에 exec_string값을 인자값으로 전달하면 "/bin/sh"로 system()함수를 호출하여 쉘 획득
 ```
 	[XXXXXXXXXXXXXXX] [SFP]  [RET]   [argv]
-           buf               main() 
-                               ^         ^ 
-                               |         |
-                            shell()  exec_string
+               buf               main() 
+                                   ^         ^ 
+                                   |         |
+                                shell()  exec_string
 ```
 
 <br/><br/>
@@ -99,8 +99,8 @@
 ```
 ```
 	AAAABBBBCCCCDDDDEEEEFFFFGGGGHHHHIIII
-                               ^
-               (27byte)        |
+                                   ^
+                   (27byte)        |
 ``` 
 - 해당 위치에 shell()함수 주소값, 복귀 주소값, exec_string 주소값이 덮어써지도록 하면 됨
   (복귀 주소는 shell() 호출 이후 복귀할 주소를 뜻하므로 임의로 4byte 채워주면 됨)
