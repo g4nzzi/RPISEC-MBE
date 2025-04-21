@@ -28,27 +28,27 @@
 
 	void shell(char* cmd)
 	{
-    	system(cmd);
+    	    system(cmd);
 	}
 
 	void print_name(char* input)
 	{
-    	char buf[15];
-        strcpy(buf, input);
-        printf("Hello %s\n", buf);
+    	    char buf[15];
+            strcpy(buf, input);
+            printf("Hello %s\n", buf);
 	}
 
 	int main(int argc, char** argv)
 	{
-        if(argc != 2)
-        {
-            printf("usage:\n%s string\n", argv[0]);
-            return EXIT_FAILURE;
-        }
+            if(argc != 2)
+            {
+                printf("usage:\n%s string\n", argv[0]);
+                return EXIT_FAILURE;
+            }
 
-        print_name(argv[1]);
+            print_name(argv[1]);
 
-        return EXIT_SUCCESS;
+            return EXIT_SUCCESS;
 	}
 ```
 ### 2.2 Code 분석
@@ -56,21 +56,21 @@
 ```c
 	int main(int argc, char** argv)
 	{
-        if(argc != 2)
-        {
+            if(argc != 2)
+            {
  		...
-        }
+            }
 
-        print_name(argv[1]);
-    }
+            print_name(argv[1]);
+        }
 ```
 - print_name()함수에서 strcpy()함수로 실행 인자값(input)을 buf에 복사할 때 overflow 취약점 존재 
 ```c
 	void print_name(char* input)
 	{
-    	char buf[15];
-        strcpy(buf, input);
-        ...
+    	    char buf[15];
+            strcpy(buf, input);
+            ...
 	}
 ```
 - buf를 이용해 stack 메모리를 덮어쓰면, print_name()함수를 끝내고 main()함수로 돌아갈 주소를 shell()함수 주소로 변경 가능
