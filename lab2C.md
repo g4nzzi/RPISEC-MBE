@@ -27,32 +27,32 @@
 
 	void shell()
 	{
-    	printf("You did it.\n");
-        system("/bin/sh");
+    	    printf("You did it.\n");
+            system("/bin/sh");
 	}
 
 	int main(int argc, char** argv)
 	{
-        if(argc != 2)
-        {
-            printf("usage:\n%s string\n", argv[0]);
-            return EXIT_FAILURE;
-        }
+            if(argc != 2)
+            {
+                printf("usage:\n%s string\n", argv[0]);
+                return EXIT_FAILURE;
+            }
 
-        int set_me = 0;
-        char buf[15];
-        strcpy(buf, argv[1]);
+            int set_me = 0;
+            char buf[15];
+            strcpy(buf, argv[1]);
 
-        if(set_me == 0xdeadbeef)
-        {
-            shell();
-        }
-        else
-        {
-            printf("Not authenticated.\nset_me was %d\n", set_me);
-        }
+            if(set_me == 0xdeadbeef)
+            {
+                shell();
+            }
+            else
+            {
+                printf("Not authenticated.\nset_me was %d\n", set_me);
+            }
 
-        return EXIT_SUCCESS;
+            return EXIT_SUCCESS;
 	}
 ```
 ### 2.2 Code 분석
@@ -64,8 +64,8 @@
 ```c
 	if(set_me == 0xdeadbeef)
 	{
-		shell();
-    }
+	    shell();
+        }
 ```
 
 <br/><br/>
