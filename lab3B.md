@@ -98,11 +98,11 @@
 ```
 - 자식 프로세스의 경우, buffer 사이즈가 128byte이지만 gets()함수에서 입력값 제한이 없으므로 overflow 발생
 ```c
-  char buffer[128] = {0};
-  ...
-  puts("just give me some shellcode, k");
-  gets(buffer);
-  ...
+        char buffer[128] = {0};
+        ...
+        puts("just give me some shellcode, k");
+        gets(buffer);
+        ...
 ```
 - overflow 시 crash가 발생되는 위치를 확인하기 위해 임의값 128byte + 알파벳 패턴으로 입력 데이터를 만듬
 ```python
