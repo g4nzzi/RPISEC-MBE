@@ -72,19 +72,19 @@
 - 전역변수 a_user_name 은 100byte 크기이지만 fgets()함수를 통해 256byte(0x100)를 입력받을 수 있으므로 overflow 발생 가능
 ```c
 	char a_user_name[100];
-  ...
-  printf("********* ADMIN LOGIN PROMPT *********\n");
-  printf("Enter Username: ");
-  fgets(a_user_name, 0x100, stdin);
-  ...
+        ...
+        printf("********* ADMIN LOGIN PROMPT *********\n");
+        printf("Enter Username: ");
+        fgets(a_user_name, 0x100, stdin);
+        ...
 ```
 - 지역변수 a_user_pass 는 64byte 크기이지만 fgets()함수를 통해 100byte(0x64)를 입력받을 수 있으므로 overflow 발생 가능
 ```c
 	char a_user_pass[64] = {0};
-  ...
-  printf("Enter Password: \n");
-  fgets(a_user_pass, 0x64, stdin);
-  ...
+        ...
+        printf("Enter Password: \n");
+        fgets(a_user_pass, 0x64, stdin);
+        ...
 ```
 - a_user_name 는 초기화되지 않은 전역변수이므로 bss 섹션에 위치하고, 프로그램 실행 시 메모리 주소 확인이 가능함 (a_user_pass 는 지역변수이기 때문에 stack에 위치함)
 ```
@@ -106,14 +106,14 @@
 	verifying username....
 
 	Enter Password:	AAAABBBBCCCCDDDDEEEEFFFFGGGGHHHHIIIIJJJJKKKKLLLLMMMMNNNNOOOOPPPPQQQQRRRRSSSSTTTTUUUUVVVVWWWWXXXXYYYYZZZZ
-  ...
-  Stopped reason: SIGSEGV
+        ...
+        Stopped reason: SIGSEGV
 	0x55555555 in ?? ()
 	gdb-peda$
 ```
 ```
 	[   a_user_pass  ] [dummy] [SFP][RET]
-  AAAABBBBCCCCDDDDEEEEFFFF ~~ TTTTUUUUVVVVWWWWXXXXYYYYZZZZ
+        AAAABBBBCCCCDDDDEEEEFFFF ~~ TTTTUUUUVVVVWWWWXXXXYYYYZZZZ
 	                                ^
 	|----------  (80byte) --------- |
 ```
