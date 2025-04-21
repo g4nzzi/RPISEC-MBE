@@ -29,8 +29,8 @@
    0x08048c5d <+121>:   call   0x8048a74 <test>
 ```
 ```c
-	...
-	scanf("%d", input)
+    ...
+    scanf("%d", input)
     test(input, 0x1337d00d)
     ...
 ```
@@ -61,14 +61,14 @@
 ```
 ```c
     ...
-	key = 0x1337d00d - input
+    key = 0x1337d00d - input
     if(key > 0x15)
     	decrypt(rand())
     else
     	switch(&((key << 2) + 0x8048d30))
         ...
         case:
-        	decrypt(key)
+            decrypt(key)
     ...
 ```
 ### 2.3 decrypt()
@@ -141,7 +141,7 @@
 	
 	result = []
 	for i, j in zip(s1, s2):
-    	result.append(int(i, 16) ^ ord(j))
+    	    result.append(int(i, 16) ^ ord(j))
 	
 	print(result)
 ```
