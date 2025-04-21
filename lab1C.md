@@ -15,7 +15,7 @@
 
 	Password: a12345678
 	
-    Invalid Password!!!
+        Invalid Password!!!
 	lab1C@warzone:/levels/lab01$
 ``` 
 
