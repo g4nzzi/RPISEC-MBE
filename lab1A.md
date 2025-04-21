@@ -65,7 +65,7 @@
    0x08048c49 <+261>:   call   0x8048820 <system@plt>
 ```
 ```c
-	fgets(Username, 0x20, stdin)
+    fgets(Username, 0x20, stdin)
     ...
     scanf("%u", serial)
     if(auth(Username, serial) == 0)
@@ -109,14 +109,13 @@
 	0x8048d2c:      "\033[31m| !! TAMPERING DETECTED !!  |"
 	gdb-peda$ x/s 0x8048d50
 	0x8048d50:      "\033[32m'", '-' <repeats 27 times>, "'"
-   
 ```
 ```c
-	...
+    ...
     if(strnlen(Username, 0x20) > 5)
     	if(ptrace(0, 0, 1, 0) == -1)
-    		puts("!! TAMPERING DETECTED !!")
-        	return 1
+            puts("!! TAMPERING DETECTED !!")
+            return 1
     ...
     else
     	return 1
@@ -133,7 +132,7 @@
    0x08048acf <+192>:   mov    DWORD PTR [ebp-0x14],0x0
 ```
 ```c
-	temp = (Username[3] ^ 0x1337) + 0x5eeded
+    temp = (Username[3] ^ 0x1337) + 0x5eeded
 ```
 - Username 입력값을 하나씩 체크(0x1f와 비교)하여 만족할 경우, 이후 연산을 반복 진행
 ```
@@ -172,14 +171,14 @@
 ```c
 	for(i=0; i < strlen(Username); i++)
     	if(Username[i] > 0x1f)
-        	v1 = Username[i] ^ temp
-        	v2 = (v1 * 0x88233b2b) >> 32
+            v1 = Username[i] ^ temp
+            v2 = (v1 * 0x88233b2b) >> 32
             v3 = (v1 - v2) >> 1
             v3 = (v3 + v2) >> 0xa
             v3 = v2 - (v3 * 0x539)
             temp += v3
         else
-			return 1
+	    return 1
 ```
 - 연산이 끝난 임시(temp)값과 serial 입력값을 비교하여 일치할 경우에만 0x0을 리턴
 ```
@@ -193,7 +192,7 @@
    0x08048b43 <+308>:   ret
 ```
 ```c
-	if(temp == serial)
+    if(temp == serial)
     	return 0
     else
     	return 1
@@ -207,9 +206,9 @@ serial 획득 가능
 	Username = input("Username : ")
 
 	if len(Username) > 5 :
-    	temp = ((ord(Username[3])) ^ int('0x1337', 16)) + int('0x5eeded', 16)
+    	    temp = ((ord(Username[3])) ^ int('0x1337', 16)) + int('0x5eeded', 16)
     
-    	for i in range(0, len(Username)) :
+            for i in range(0, len(Username)) :
         	if (ord(Username[i])) > int('0x1f', 16) :
             	v1 = (ord(Username[i])) ^ temp
             	v2 = (v1 * int('0x88233b2b', 16)) >> 32
@@ -217,10 +216,10 @@ serial 획득 가능
             	v3 = (v3 + v2) >> int('0xa', 16)
             	v3 = v1 - (v3 * int('0x539', 16))
             	temp += v3
-        	else:
+            else:
             	exit()
 	else:
-    	exit()
+    	    exit()
     
 	print('serial : ', temp)
 ```
